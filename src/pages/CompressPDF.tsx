@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
@@ -147,7 +146,7 @@ const CompressPDF = () => {
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm">
-                    Original Size: {(selectedFile?.size || 0) / (1024 * 1024).toFixed(2)}MB
+                    Original Size: {((selectedFile?.size || 0) / (1024 * 1024)).toFixed(2)}MB
                   </p>
                   <p className="text-sm">
                     Compressed Size: {(compressedSize / (1024 * 1024)).toFixed(2)}MB

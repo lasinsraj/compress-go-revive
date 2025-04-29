@@ -4,7 +4,7 @@ import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "@/components/ui/use-toast";
-import { Download, Image } from "lucide-react";
+import { Download, Image as ImageIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -51,7 +51,7 @@ const CompressImage = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target && typeof e.target.result === "string") {
-        const img = new Image();
+        const img = new window.Image();
         img.onload = () => {
           // Simulate compression process
           const originalSize = selectedFile.size;
