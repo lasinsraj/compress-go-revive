@@ -1,7 +1,7 @@
 
 import React from "react";
 
-const AdPlaceholder: React.FC = () => {
+export const AdPlaceholder: React.FC = () => {
   return (
     <div className="bg-gray-100 p-3 text-center text-sm text-gray-500">
       Advertisement
