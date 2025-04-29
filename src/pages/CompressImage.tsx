@@ -7,7 +7,7 @@ import CompressionResult from "@/components/image-compressor/CompressionResult";
 import TipsCard from "@/components/image-compressor/TipsCard";
 import RelatedTools from "@/components/image-compressor/RelatedTools";
 import InfoSection from "@/components/image-compressor/InfoSection";
-import { AdPlaceholder } from "@/components/jpg-compressor/AdPlaceholder";
+import AdPlaceholder from "@/components/shared/AdPlaceholder";
 
 const CompressImage = () => {
   const {

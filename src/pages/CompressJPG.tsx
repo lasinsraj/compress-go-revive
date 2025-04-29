@@ -1,11 +1,10 @@
-
 import React from "react";
 import FileUploader from "@/components/FileUploader";
 import { useImageCompression } from "@/components/jpg-compressor/useImageCompression";
 import CompressionOptions from "@/components/jpg-compressor/CompressionOptions";
 import CompressionResult from "@/components/jpg-compressor/CompressionResult";
 import TipsCard from "@/components/jpg-compressor/TipsCard";
-import AdPlaceholder from "@/components/jpg-compressor/AdPlaceholder";
+import AdPlaceholder from "@/components/shared/AdPlaceholder";
 import RelatedTools from "@/components/jpg-compressor/RelatedTools";
 import InfoSection from "@/components/jpg-compressor/InfoSection";
 

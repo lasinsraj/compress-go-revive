@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useToast } from "@/components/ui/use-toast";
+import AdPlaceholder from "@/components/shared/AdPlaceholder";
 
 const Layout = () => {
   const { toast } = useToast();
@@ -14,13 +15,7 @@ const Layout = () => {
         <Outlet />
       </main>
       <div className="mt-6">
-        {/* AdSense placeholder */}
-        <div className="bg-gray-100 p-3 text-center text-sm text-gray-500">
-          Advertisement
-          <div className="h-20 bg-gray-200 flex items-center justify-center">
-            Google AdSense (Add your AdSense code here)
-          </div>
-        </div>
+        <AdPlaceholder />
       </div>
       <Footer />
     </div>
