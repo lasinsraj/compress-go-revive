@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
@@ -253,13 +252,13 @@ const CompressJPG = () => {
               <ul className="space-y-2">
                 <li>
                   <a href="/compress-image" className="text-brand-red hover:underline flex items-center">
-                    <Image className="w-4 h-4 mr-2" />
+                    <ImageIcon className="w-4 h-4 mr-2" />
                     Compress Image (All Formats)
                   </a>
                 </li>
                 <li>
                   <a href="/compress-png" className="text-brand-red hover:underline flex items-center">
-                    <Image className="w-4 h-4 mr-2" />
+                    <ImageIcon className="w-4 h-4 mr-2" />
                     Compress PNG
                   </a>
                 </li>
