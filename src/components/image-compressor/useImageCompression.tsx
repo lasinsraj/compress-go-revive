@@ -29,35 +29,89 @@ export const useImageCompression = () => {
     
     setProcessing(true);
     
-    // In a real implementation, we would use the browser's canvas API to compress the image
-    // For this simulation, we're just creating a delayed effect and calculating a simulated size
+    // Use canvas to actually compress the image
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target && typeof e.target.result === "string") {
         const img = new Image();
         img.onload = () => {
-          // Simulate compression process
-          const originalSize = selectedFile.size;
+          // Create canvas
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
           
-          // Calculate compression ratio based on quality slider
-          const quality = qualityLevel[0] / 100;
-          let compressionRatio = 1 - (1 - quality) * 0.8; // This gives a reasonable estimation
+          // Set dimensions (maintaining aspect ratio)
+          canvas.width = img.width;
+          canvas.height = img.height;
           
-          // Calculate simulated compressed size
-          const newSize = Math.floor(originalSize * compressionRatio);
-          
-          // Simulate processing delay
-          setTimeout(() => {
-            setProcessing(false);
-            setCompressed(true);
-            setCompressedSize(newSize);
-            setCompressedImageUrl(e.target?.result as string);
+          // Draw image on canvas
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             
-            toast({
-              title: "Image Compression Complete",
-              description: `Reduced from ${(originalSize / 1024).toFixed(2)}KB to ${(newSize / 1024).toFixed(2)}KB (${Math.round((1 - compressionRatio) * 100)}% reduction)`,
-            });
-          }, 1500);
+            // Convert to blob with compression
+            const quality = qualityLevel[0] / 100;
+            
+            // Determine output format
+            let format = outputFormat;
+            if (format === "same") {
+              // Extract format from file type
+              if (selectedFile.type.includes("jpeg") || selectedFile.type.includes("jpg")) {
+                format = "jpeg";
+              } else if (selectedFile.type.includes("png")) {
+                format = "png";
+              } else if (selectedFile.type.includes("webp")) {
+                format = "webp";
+              } else {
+                format = "jpeg"; // Default to JPEG
+              }
+            }
+            
+            // Convert format string to proper MIME type
+            let mimeType: string;
+            switch (format) {
+              case "jpg":
+              case "jpeg":
+                mimeType = "image/jpeg";
+                break;
+              case "png":
+                mimeType = "image/png";
+                break;
+              case "webp":
+                mimeType = "image/webp";
+                break;
+              default:
+                mimeType = "image/jpeg";
+            }
+            
+            // Convert to blob with compression
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  const compressedUrl = URL.createObjectURL(blob);
+                  setCompressedImageUrl(compressedUrl);
+                  setCompressedSize(blob.size);
+                  setCompressed(true);
+                  
+                  const originalSize = selectedFile.size;
+                  const newSize = blob.size;
+                  const reduction = Math.round((1 - newSize / originalSize) * 100);
+                  
+                  toast({
+                    title: "Image Compression Complete",
+                    description: `Reduced from ${(originalSize / 1024).toFixed(2)}KB to ${(newSize / 1024).toFixed(2)}KB (${reduction}% reduction)`,
+                  });
+                } else {
+                  toast({
+                    title: "Compression Failed",
+                    description: "There was a problem compressing your image.",
+                    variant: "destructive",
+                  });
+                }
+                setProcessing(false);
+              },
+              mimeType,
+              quality
+            );
+          }
         };
         img.src = e.target.result;
       }
@@ -68,8 +122,7 @@ export const useImageCompression = () => {
   const handleDownload = () => {
     if (!selectedFile || !compressedImageUrl) return;
     
-    // In a real implementation, we would download the actual compressed image
-    // Here we're just downloading the original image as a simulation
+    // Here we're downloading the actual compressed image
     const a = document.createElement("a");
     a.href = compressedImageUrl;
     
