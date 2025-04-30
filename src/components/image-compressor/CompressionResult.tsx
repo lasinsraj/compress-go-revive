@@ -16,6 +16,17 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
   compressedSize,
   handleDownload,
 }) => {
+  const handleOriginalDownload = () => {
+    const url = URL.createObjectURL(selectedFile);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = selectedFile.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+  
   return (
     <div className="mt-6 border rounded-lg p-6">
       <h3 className="font-medium mb-4">Compression Result</h3>
@@ -30,11 +41,17 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
               className="max-h-full max-w-full object-contain"
             />
           </div>
-          <p className="text-xs text-center">
-            Size: {selectedFile.size / 1024 > 1024 
-              ? (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB"
-              : (selectedFile.size / 1024).toFixed(2) + " KB"}
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-xs">
+              Size: {selectedFile.size / 1024 > 1024 
+                ? (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB"
+                : (selectedFile.size / 1024).toFixed(2) + " KB"}
+            </p>
+            <Button onClick={handleOriginalDownload} variant="outline" size="sm" className="text-xs">
+              <Download className="mr-1 h-3 w-3" />
+              Download Original
+            </Button>
+          </div>
         </div>
         
         <div className="space-y-2">
@@ -46,11 +63,17 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
               className="max-h-full max-w-full object-contain"
             />
           </div>
-          <p className="text-xs text-center">
-            Size: {compressedSize / 1024 > 1024 
-              ? (compressedSize / (1024 * 1024)).toFixed(2) + " MB"
-              : (compressedSize / 1024).toFixed(2) + " KB"}
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-xs">
+              Size: {compressedSize / 1024 > 1024 
+                ? (compressedSize / (1024 * 1024)).toFixed(2) + " MB"
+                : (compressedSize / 1024).toFixed(2) + " KB"}
+            </p>
+            <Button onClick={handleDownload} variant="outline" size="sm" className="text-xs">
+              <Download className="mr-1 h-3 w-3" />
+              Download Compressed
+            </Button>
+          </div>
         </div>
       </div>
       
