@@ -6,7 +6,22 @@ export const AdPlaceholder: React.FC = () => {
     <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-3 text-center text-sm text-gray-500 rounded-lg shadow-sm">
       Advertisement
       <div className="h-60 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden hover:shadow-md transition-all duration-300">
-        <p className="text-gray-400">Google AdSense (Add your AdSense code here)</p>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8390293036422522"
+          crossOrigin="anonymous"
+        ></script>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "inline-block", width: "728px", height: "90px" }}
+          data-ad-client="ca-pub-8390293036422522"
+          data-ad-slot="2025983790"
+        ></ins>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+          }}
+        ></script>
       </div>
     </div>
   );
