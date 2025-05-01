@@ -13,6 +13,7 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
   const [compressed, setCompressed] = useState(false);
   const [compressedSize, setCompressedSize] = useState(0);
   const [compressedImageUrl, setCompressedImageUrl] = useState<string | null>(null);
+  const [compressedBlob, setCompressedBlob] = useState<Blob | null>(null);
 
   const handleFileSelect = (file: File) => {
     // Check if file is a JPG if validateFileType is provided
@@ -28,6 +29,7 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
     setSelectedFile(file);
     setCompressed(false);
     setCompressedImageUrl(null);
+    setCompressedBlob(null);
   };
   
   const handleCompression = () => {
@@ -68,6 +70,7 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
                 if (blob) {
                   const compressedUrl = URL.createObjectURL(blob);
                   setCompressedImageUrl(compressedUrl);
+                  setCompressedBlob(blob);
                   setCompressedSize(blob.size);
                   setCompressed(true);
                   
@@ -100,11 +103,18 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
   };
   
   const handleDownload = () => {
-    if (!selectedFile || !compressedImageUrl) return;
+    if (!selectedFile || !compressedBlob) {
+      toast({
+        title: "No compressed image",
+        description: "Please compress the image first.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     // Here we're downloading the actual compressed image
     const a = document.createElement("a");
-    a.href = compressedImageUrl;
+    a.href = URL.createObjectURL(compressedBlob);
     a.download = `compressed_${selectedFile.name}`;
     document.body.appendChild(a);
     a.click();
@@ -112,7 +122,25 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
     
     toast({
       title: "Download Started",
-      description: "Your compressed JPG image is downloading.",
+      description: `Your compressed JPG image (${(compressedSize / 1024).toFixed(2)}KB) is downloading.`,
+    });
+  };
+
+  const handleOriginalDownload = () => {
+    if (!selectedFile) return;
+    
+    const url = URL.createObjectURL(selectedFile);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = selectedFile.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Download Started",
+      description: `Your original image (${(selectedFile.size / 1024).toFixed(2)}KB) is downloading.`,
     });
   };
 
@@ -126,6 +154,7 @@ export const useImageCompression = ({ validateFileType }: UseImageCompressionPro
     setQualityLevel,
     handleFileSelect,
     handleCompression,
-    handleDownload
+    handleDownload,
+    handleOriginalDownload
   };
 };

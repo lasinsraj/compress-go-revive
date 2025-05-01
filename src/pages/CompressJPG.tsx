@@ -1,3 +1,4 @@
+
 import React from "react";
 import FileUploader from "@/components/FileUploader";
 import { useImageCompression } from "@/components/jpg-compressor/useImageCompression";
@@ -23,7 +24,8 @@ const CompressJPG = () => {
     setQualityLevel,
     handleFileSelect,
     handleCompression,
-    handleDownload
+    handleDownload,
+    handleOriginalDownload
   } = useImageCompression({ validateFileType: validateJpgFileType });
   
   return (
@@ -60,6 +62,7 @@ const CompressJPG = () => {
               compressedImageUrl={compressedImageUrl}
               compressedSize={compressedSize}
               handleDownload={handleDownload}
+              handleOriginalDownload={handleOriginalDownload}
             />
           )}
         </div>

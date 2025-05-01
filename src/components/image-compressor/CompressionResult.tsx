@@ -8,6 +8,7 @@ interface CompressionResultProps {
   compressedImageUrl: string;
   compressedSize: number;
   handleDownload: () => void;
+  handleOriginalDownload: () => void;
 }
 
 const CompressionResult: React.FC<CompressionResultProps> = ({
@@ -15,18 +16,8 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
   compressedImageUrl,
   compressedSize,
   handleDownload,
+  handleOriginalDownload,
 }) => {
-  const handleOriginalDownload = () => {
-    const url = URL.createObjectURL(selectedFile);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = selectedFile.name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-  
   return (
     <div className="mt-6 border rounded-lg p-6">
       <h3 className="font-medium mb-4">Compression Result</h3>

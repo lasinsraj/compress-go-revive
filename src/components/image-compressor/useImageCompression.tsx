@@ -2,7 +2,11 @@
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-export const useImageCompression = () => {
+interface UseImageCompressionProps {
+  validateFileType?: (file: File) => boolean;
+}
+
+export const useImageCompression = ({ validateFileType }: UseImageCompressionProps = {}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [qualityLevel, setQualityLevel] = useState<number[]>([80]);
   const [processing, setProcessing] = useState(false);
@@ -10,11 +14,22 @@ export const useImageCompression = () => {
   const [compressedSize, setCompressedSize] = useState(0);
   const [compressedImageUrl, setCompressedImageUrl] = useState<string | null>(null);
   const [outputFormat, setOutputFormat] = useState("same");
+  const [compressedBlob, setCompressedBlob] = useState<Blob | null>(null);
   
   const handleFileSelect = (file: File) => {
+    if (validateFileType && !validateFileType(file)) {
+      toast({
+        title: "Invalid file type",
+        description: "Please select an image with the correct format.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setSelectedFile(file);
     setCompressed(false);
     setCompressedImageUrl(null);
+    setCompressedBlob(null);
   };
   
   const handleCompression = () => {
@@ -88,6 +103,7 @@ export const useImageCompression = () => {
                 if (blob) {
                   const compressedUrl = URL.createObjectURL(blob);
                   setCompressedImageUrl(compressedUrl);
+                  setCompressedBlob(blob);
                   setCompressedSize(blob.size);
                   setCompressed(true);
                   
@@ -120,11 +136,18 @@ export const useImageCompression = () => {
   };
   
   const handleDownload = () => {
-    if (!selectedFile || !compressedImageUrl) return;
+    if (!selectedFile || !compressedBlob) {
+      toast({
+        title: "No compressed image",
+        description: "Please compress the image first.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     // Here we're downloading the actual compressed image
     const a = document.createElement("a");
-    a.href = compressedImageUrl;
+    a.href = URL.createObjectURL(compressedBlob);
     
     // Set file extension based on output format
     let fileName = selectedFile.name;
@@ -143,7 +166,25 @@ export const useImageCompression = () => {
     
     toast({
       title: "Download Started",
-      description: "Your compressed image is downloading.",
+      description: `Your compressed image (${(compressedSize / 1024).toFixed(2)}KB) is downloading.`,
+    });
+  };
+
+  const handleOriginalDownload = () => {
+    if (!selectedFile) return;
+    
+    const url = URL.createObjectURL(selectedFile);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = selectedFile.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Download Started",
+      description: `Your original image (${(selectedFile.size / 1024).toFixed(2)}KB) is downloading.`,
     });
   };
 
@@ -159,6 +200,7 @@ export const useImageCompression = () => {
     setOutputFormat,
     handleFileSelect,
     handleCompression,
-    handleDownload
+    handleDownload,
+    handleOriginalDownload
   };
 };

@@ -22,7 +22,8 @@ const CompressImage = () => {
     setOutputFormat,
     handleFileSelect,
     handleCompression,
-    handleDownload
+    handleDownload,
+    handleOriginalDownload
   } = useImageCompression();
   
   return (
@@ -61,6 +62,7 @@ const CompressImage = () => {
               compressedImageUrl={compressedImageUrl}
               compressedSize={compressedSize}
               handleDownload={handleDownload}
+              handleOriginalDownload={handleOriginalDownload}
             />
           )}
         </div>
