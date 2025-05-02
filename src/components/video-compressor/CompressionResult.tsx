@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import DownloadButton from "@/components/shared/DownloadButton";
 
 interface CompressionResultProps {
   compressed: boolean;
@@ -59,10 +60,12 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
           </span>
         </div>
         
-        <Button onClick={handleDownload} className="w-full bg-brand-red hover:bg-red-700">
-          <Download className="mr-2 h-4 w-4" />
+        <DownloadButton 
+          onDownload={handleDownload} 
+          className="w-full bg-brand-red hover:bg-red-700"
+        >
           Download Compressed Video
-        </Button>
+        </DownloadButton>
       </div>
     </div>
   );

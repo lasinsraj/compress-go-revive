@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import DownloadButton from "@/components/shared/DownloadButton";
 
 interface CompressionResultProps {
   selectedFile: File;
@@ -76,10 +77,12 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
           </p>
         </div>
         
-        <Button onClick={handleDownload} className="bg-brand-red hover:bg-red-700">
-          <Download className="mr-2 h-4 w-4" />
+        <DownloadButton 
+          onDownload={handleDownload} 
+          className="bg-brand-red hover:bg-red-700"
+        >
           Download Compressed Image
-        </Button>
+        </DownloadButton>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { toast } from "@/components/ui/use-toast";
 import { Download, Image } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DownloadButton from "@/components/shared/DownloadButton";
 
 const CompressPNG = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -204,15 +205,18 @@ const CompressPNG = () => {
                   </p>
                 </div>
                 
-                <Button onClick={handleDownload} className="bg-brand-red hover:bg-red-700">
-                  <Download className="mr-2 h-4 w-4" />
+                <DownloadButton 
+                  onDownload={handleDownload} 
+                  className="bg-brand-red hover:bg-red-700"
+                >
                   Download Compressed PNG
-                </Button>
+                </DownloadButton>
               </div>
             </div>
           )}
         </div>
         
+        {/* Tips and Related Tools Section */}
         <div>
           <Card>
             <CardHeader>
@@ -275,6 +279,7 @@ const CompressPNG = () => {
         </div>
       </div>
       
+      {/* Why Compress PNG Section */}
       <section className="mt-12 bg-gray-50 p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-4">Why Compress PNG Files?</h2>
         <p className="text-gray-600 mb-4">
@@ -289,4 +294,3 @@ const CompressPNG = () => {
 };
 
 export default CompressPNG;
-

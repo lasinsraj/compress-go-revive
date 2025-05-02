@@ -5,6 +5,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Download, Upload, X, File, Archive } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import DownloadButton from "@/components/shared/DownloadButton";
 
 const CreateZip = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -121,6 +122,7 @@ const CreateZip = () => {
             </div>
           </div>
           
+          {/* Files List Section */}
           {files.length > 0 && (
             <div className="mt-6 border rounded-lg p-4">
               <div className="flex justify-between items-center mb-3">
@@ -195,18 +197,18 @@ const CreateZip = () => {
                   {compressing ? "Creating ZIP Archive..." : "Create ZIP Archive"}
                 </Button>
               ) : (
-                <Button 
-                  onClick={handleDownload}
+                <DownloadButton 
+                  onDownload={handleDownload}
                   className="w-full bg-brand-red hover:bg-red-700"
                 >
-                  <Download className="mr-2 h-4 w-4" />
                   Download ZIP Archive
-                </Button>
+                </DownloadButton>
               )}
             </div>
           </div>
         </div>
         
+        {/* Tips and Info Section */}
         <div>
           <Card>
             <CardHeader>
@@ -266,6 +268,7 @@ const CreateZip = () => {
         </div>
       </div>
       
+      {/* About Section */}
       <section className="mt-12 bg-gray-50 p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-4">About Our ZIP Archive Tool</h2>
         <p className="text-gray-600 mb-4">

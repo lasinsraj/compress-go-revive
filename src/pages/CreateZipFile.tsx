@@ -6,6 +6,7 @@ import { Download, Upload, X, File, Archive } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DownloadButton from "@/components/shared/DownloadButton";
 
 const CreateZipFile = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -127,6 +128,7 @@ const CreateZipFile = () => {
             </div>
           </div>
           
+          {/* Files List Section */}
           {files.length > 0 && (
             <div className="mt-6 border rounded-lg p-4">
               <div className="flex justify-between items-center mb-3">
@@ -194,18 +196,18 @@ const CreateZipFile = () => {
                   {compressing ? "Creating ZIP File..." : "Create ZIP File"}
                 </Button>
               ) : (
-                <Button 
-                  onClick={handleDownload}
+                <DownloadButton 
+                  onDownload={handleDownload}
                   className="w-full bg-brand-red hover:bg-red-700"
                 >
-                  <Download className="mr-2 h-4 w-4" />
                   Download ZIP File
-                </Button>
+                </DownloadButton>
               )}
             </div>
           </div>
         </div>
         
+        {/* Info Cards Section */}
         <div>
           <Card>
             <CardHeader>
@@ -266,6 +268,7 @@ const CreateZipFile = () => {
         </div>
       </div>
       
+      {/* How-To Section */}
       <section className="mt-12 bg-gray-50 p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-4">How to Create a ZIP File</h2>
         <ol className="list-decimal pl-5 space-y-2">
