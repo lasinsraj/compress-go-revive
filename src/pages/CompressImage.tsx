@@ -40,7 +40,7 @@ const CompressImage = () => {
         <div className="lg:col-span-2">
           <FileUploader
             allowedTypes={["image/*"]}
-            maxSizeMB={20}
+            maxSizeMB={100}
             title="Upload Image"
             description="Drag and drop your image here, or click to browse"
             onFileSelect={handleFileSelect}

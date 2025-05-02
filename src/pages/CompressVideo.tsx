@@ -41,7 +41,7 @@ const CompressVideo = () => {
         <div className="lg:col-span-2">
           <FileUploader
             allowedTypes={["video/*"]}
-            maxSizeMB={100}
+            maxSizeMB={500}
             title="Upload Video"
             description="Drag and drop your video here, or click to browse"
             onFileSelect={handleFileSelect}

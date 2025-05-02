@@ -35,7 +35,7 @@ const CompressPDF = () => {
         <div className="lg:col-span-2">
           <FileUploader
             allowedTypes={["application/pdf"]}
-            maxSizeMB={50}
+            maxSizeMB={150}
             title="Upload PDF File"
             description="Drag and drop your PDF here, or click to browse"
             onFileSelect={handleFileSelect}
