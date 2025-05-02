@@ -39,10 +39,9 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
                 ? (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB"
                 : (selectedFile.size / 1024).toFixed(2) + " KB"}
             </p>
-            <Button onClick={handleOriginalDownload} variant="outline" size="sm" className="text-xs">
-              <Download className="mr-1 h-3 w-3" />
+            <DownloadButton onDownload={handleOriginalDownload} variant="outline" size="sm" className="text-xs">
               Download Original
-            </Button>
+            </DownloadButton>
           </div>
         </div>
         

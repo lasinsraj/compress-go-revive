@@ -8,13 +8,17 @@ interface DownloadButtonProps {
   disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  size?: "default" | "sm" | "lg" | "icon";
 }
 
 const DownloadButton: React.FC<DownloadButtonProps> = ({
   onDownload,
   disabled = false,
   className = "",
-  children = "Download"
+  children = "Download",
+  variant = "default",
+  size = "default"
 }) => {
   const [countdown, setCountdown] = useState<number | null>(null);
   
@@ -51,6 +55,8 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
       onClick={handleClick} 
       disabled={disabled || countdown !== null}
       className={`${className} relative`}
+      variant={variant}
+      size={size}
     >
       {countdown !== null ? (
         <>
