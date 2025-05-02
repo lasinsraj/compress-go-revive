@@ -1,9 +1,7 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import DownloadButton from "@/components/shared/DownloadButton";
-
 interface CompressionResultProps {
   selectedFile: File;
   compressedImageUrl: string;
@@ -11,33 +9,25 @@ interface CompressionResultProps {
   handleDownload: () => void;
   handleOriginalDownload: () => void;
 }
-
 const CompressionResult: React.FC<CompressionResultProps> = ({
   selectedFile,
   compressedImageUrl,
   compressedSize,
   handleDownload,
-  handleOriginalDownload,
+  handleOriginalDownload
 }) => {
-  return (
-    <div className="mt-6 border rounded-lg p-6">
+  return <div className="mt-6 border rounded-lg p-6">
       <h3 className="font-medium mb-4">Compression Result</h3>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <h4 className="text-sm font-medium">Original</h4>
           <div className="border rounded bg-gray-100 p-2 flex items-center justify-center h-40 overflow-hidden">
-            <img 
-              src={URL.createObjectURL(selectedFile)}
-              alt="Original" 
-              className="max-h-full max-w-full object-contain"
-            />
+            <img src={URL.createObjectURL(selectedFile)} alt="Original" className="max-h-full max-w-full object-contain" />
           </div>
           <div className="flex justify-between items-center">
             <p className="text-xs">
-              Size: {selectedFile.size / 1024 > 1024 
-                ? (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB"
-                : (selectedFile.size / 1024).toFixed(2) + " KB"}
+              Size: {selectedFile.size / 1024 > 1024 ? (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB" : (selectedFile.size / 1024).toFixed(2) + " KB"}
             </p>
             <DownloadButton onDownload={handleOriginalDownload} variant="outline" size="sm" className="text-xs">
               Download Original
@@ -48,22 +38,13 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
         <div className="space-y-2">
           <h4 className="text-sm font-medium">Compressed</h4>
           <div className="border rounded bg-gray-100 p-2 flex items-center justify-center h-40 overflow-hidden">
-            <img 
-              src={compressedImageUrl} 
-              alt="Compressed" 
-              className="max-h-full max-w-full object-contain"
-            />
+            <img src={compressedImageUrl} alt="Compressed" className="max-h-full max-w-full object-contain" />
           </div>
           <div className="flex justify-between items-center">
             <p className="text-xs">
-              Size: {compressedSize / 1024 > 1024 
-                ? (compressedSize / (1024 * 1024)).toFixed(2) + " MB"
-                : (compressedSize / 1024).toFixed(2) + " KB"}
+              Size: {compressedSize / 1024 > 1024 ? (compressedSize / (1024 * 1024)).toFixed(2) + " MB" : (compressedSize / 1024).toFixed(2) + " KB"}
             </p>
-            <Button onClick={handleDownload} variant="outline" size="sm" className="text-xs">
-              <Download className="mr-1 h-3 w-3" />
-              Download Compressed
-            </Button>
+            
           </div>
         </div>
       </div>
@@ -76,15 +57,10 @@ const CompressionResult: React.FC<CompressionResultProps> = ({
           </p>
         </div>
         
-        <DownloadButton 
-          onDownload={handleDownload} 
-          className="bg-brand-red hover:bg-red-700"
-        >
+        <DownloadButton onDownload={handleDownload} className="bg-brand-red hover:bg-red-700">
           Download Compressed Image
         </DownloadButton>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CompressionResult;
