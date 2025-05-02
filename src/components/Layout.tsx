@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useToast } from "@/components/ui/use-toast";
-import AdPlaceholder from "@/components/shared/AdPlaceholder";
+import AdPlaceholder, { AdPlaceholderWide } from "@/components/shared/AdPlaceholder";
 
 const Layout = () => {
   const { toast } = useToast();
@@ -16,6 +16,9 @@ const Layout = () => {
       </main>
       <div className="mt-6">
         <AdPlaceholder />
+      </div>
+      <div className="mt-4">
+        <AdPlaceholderWide />
       </div>
       <Footer />
     </div>

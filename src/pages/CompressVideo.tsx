@@ -1,13 +1,13 @@
 
 import React from "react";
 import FileUploader from "@/components/FileUploader";
-import { Video } from "lucide-react";
 import { useVideoCompression } from "@/components/video-compressor/useVideoCompression";
 import VideoPreview from "@/components/video-compressor/VideoPreview";
 import CompressionOptions from "@/components/video-compressor/CompressionOptions";
 import CompressionResult from "@/components/video-compressor/CompressionResult";
 import TipsCard from "@/components/video-compressor/TipsCard";
 import InfoSection from "@/components/video-compressor/InfoSection";
+import AdPlaceholder, { AdPlaceholderWide } from "@/components/shared/AdPlaceholder";
 
 const CompressVideo = () => {
   const {
@@ -80,12 +80,11 @@ const CompressVideo = () => {
           <TipsCard />
           
           <div className="mt-6">
-            <div className="bg-gray-100 p-3 text-center text-sm text-gray-500">
-              Advertisement
-              <div className="h-60 bg-gray-200 flex items-center justify-center">
-                Google AdSense (Add your AdSense code here)
-              </div>
-            </div>
+            <AdPlaceholder />
+          </div>
+
+          <div className="mt-6">
+            <AdPlaceholderWide />
           </div>
         </div>
       </div>
