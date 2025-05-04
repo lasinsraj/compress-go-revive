@@ -78,11 +78,28 @@ const CreateZipFile = () => {
   };
   
   const handleDownload = () => {
-    // In a real implementation, we would create and download an actual ZIP file
-    // Here we're just simulating the download
+    // Create a simple text file to represent the ZIP (for simulation)
+    const fileContent = files.map(file => `${file.name} (${file.size} bytes)`).join('\n');
+    const blob = new Blob([fileContent], { type: 'application/zip' });
+    const url = URL.createObjectURL(blob);
+    
+    // Ensure the zip name has the .zip extension
+    let downloadName = zipName;
+    if (!downloadName.toLowerCase().endsWith('.zip')) {
+      downloadName += '.zip';
+    }
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = downloadName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
     toast({
       title: "Download Started",
-      description: `Your ZIP file "${zipName}" is downloading.`,
+      description: `Your ZIP file "${downloadName}" is downloading.`,
     });
   };
   

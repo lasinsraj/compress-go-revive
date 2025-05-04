@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
@@ -68,16 +67,23 @@ const CreateZip = () => {
   };
   
   const handleDownload = () => {
-    // In a real implementation, we would create and download an actual ZIP file
-    // Here we're just simulating the download
+    // Create a simple text file to represent the ZIP (for simulation)
+    const fileContent = files.map(file => `${file.name} (${file.size} bytes)`).join('\n');
+    const blob = new Blob([fileContent], { type: 'application/zip' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "archive.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
     toast({
       title: "Download Started",
       description: "Your ZIP archive is downloading.",
     });
-    
-    // After download, we could reset the state
-    // setFiles([]);
-    // setCompressed(false);
   };
   
   // Calculate total size of files

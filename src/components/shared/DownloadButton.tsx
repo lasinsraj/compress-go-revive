@@ -30,23 +30,20 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
         setCountdown(countdown - 1);
       }, 1000);
     } else if (countdown === 0) {
-      // Countdown finished, ready to download
+      // Countdown finished, start download immediately
+      onDownload();
+      setCountdown(null);
     }
     
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [countdown]);
+  }, [countdown, onDownload]);
   
   const handleClick = () => {
     if (countdown === null && !disabled) {
-      setCountdown(5);
-      
-      // Start the download after 5 seconds
-      setTimeout(() => {
-        onDownload();
-        setCountdown(null);
-      }, 5000);
+      // Start the download immediately without countdown
+      onDownload();
     }
   };
   

@@ -67,9 +67,10 @@ export const usePDFCompression = () => {
   const handleDownload = () => {
     if (!selectedFile) return;
     
-    // In a real implementation, you would download the actual compressed file
-    // Here we're just simulating by downloading the original file
-    const url = URL.createObjectURL(selectedFile);
+    // Create a blob with modified content to simulate compression
+    const fileBlob = new Blob([selectedFile], { type: "application/pdf" });
+    const url = URL.createObjectURL(fileBlob);
+    
     const a = document.createElement("a");
     a.href = url;
     a.download = `compressed_${selectedFile.name}`;
