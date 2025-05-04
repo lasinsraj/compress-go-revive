@@ -2,9 +2,25 @@
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-export const useZipFile = () => {
+export interface ZipBaseState {
+  files: File[];
+  compressing: boolean;
+  compressed: boolean;
+  formattedTotalSize: string;
+}
+
+export interface ZipBaseActions {
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDrop: (e: React.DragEvent<HTMLDivElement>) => void;
+  removeFile: (index: number) => void;
+  handleCreateZip: () => void;
+  handleDownload: () => void;
+}
+
+export const useZipBase = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [zipName, setZipName] = useState("archive.zip");
   const [compressing, setCompressing] = useState(false);
   const [compressed, setCompressed] = useState(false);
   
@@ -38,25 +54,7 @@ export const useZipFile = () => {
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
   
-  const handleCreateZip = () => {
-    if (files.length === 0) {
-      toast({
-        title: "No files selected",
-        description: "Please add at least one file to create a ZIP file.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    if (!zipName.trim()) {
-      toast({
-        title: "Invalid ZIP name",
-        description: "Please enter a valid name for your ZIP file.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
+  const simulateZipCreation = (fileName: string, successMessage: string) => {
     setCompressing(true);
     
     // Simulate creating a ZIP file
@@ -66,26 +64,20 @@ export const useZipFile = () => {
       
       toast({
         title: "ZIP File Created",
-        description: `Successfully created "${zipName}" with ${files.length} files.`,
+        description: successMessage,
       });
     }, 2000);
   };
   
-  const handleDownload = () => {
+  const simulateDownload = (fileName: string) => {
     // Create a simple text file to represent the ZIP (for simulation)
     const fileContent = files.map(file => `${file.name} (${file.size} bytes)`).join('\n');
     const blob = new Blob([fileContent], { type: 'application/zip' });
     const url = URL.createObjectURL(blob);
     
-    // Ensure the zip name has the .zip extension
-    let downloadName = zipName;
-    if (!downloadName.toLowerCase().endsWith('.zip')) {
-      downloadName += '.zip';
-    }
-    
     const a = document.createElement("a");
     a.href = url;
-    a.download = downloadName;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -93,7 +85,7 @@ export const useZipFile = () => {
     
     toast({
       title: "Download Started",
-      description: `Your ZIP file "${downloadName}" is downloading.`,
+      description: `Your ZIP file "${fileName}" is downloading.`,
     });
   };
   
@@ -104,18 +96,22 @@ export const useZipFile = () => {
     : `${(totalSize / (1024 * 1024)).toFixed(2)} MB`;
   
   return {
+    // State
     files,
-    zipName,
+    setFiles,
     compressing,
+    setCompressing,
     compressed,
+    setCompressed,
     formattedTotalSize,
-    setZipName,
+    
+    // Actions
     handleFileChange,
     handleDragOver,
     handleDragLeave,
     handleDrop,
     removeFile,
-    handleCreateZip,
-    handleDownload
+    simulateZipCreation,
+    simulateDownload,
   };
 };

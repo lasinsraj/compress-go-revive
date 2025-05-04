@@ -11,6 +11,8 @@ interface FileUploaderProps {
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
   onRemoveFile: (index: number) => void;
   formattedTotalSize: string;
+  title?: string;
+  description?: string;
 }
 
 const FileUploader: React.FC<FileUploaderProps> = ({
@@ -20,7 +22,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   onDragLeave,
   onDrop,
   onRemoveFile,
-  formattedTotalSize
+  formattedTotalSize,
+  title = "Add Files to ZIP",
+  description = "Drag and drop files here, or click to browse"
 }) => {
   return (
     <>
@@ -31,9 +35,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         onDrop={onDrop}
       >
         <Upload className="mx-auto h-12 w-12 text-gray-400" />
-        <h3 className="mt-2 text-xl font-semibold">Add Files to ZIP</h3>
+        <h3 className="mt-2 text-xl font-semibold">{title}</h3>
         <p className="mt-1 text-sm text-gray-500">
-          Drag and drop files here, or click to browse
+          {description}
         </p>
         <div className="mt-4">
           <Button onClick={() => document.getElementById("file-upload")?.click()} className="bg-brand-red hover:bg-red-700">

@@ -1,10 +1,10 @@
 
 import React from "react";
-import FileUploader from "@/components/zip-file/FileUploader";
+import FileUploader from "@/components/shared/FileUploader";
 import ZipOptions from "@/components/zip-file/ZipOptions";
 import InfoCards from "@/components/zip-file/InfoCards";
 import HowToSection from "@/components/zip-file/HowToSection";
-import { useZipFile } from "@/components/zip-file/useZipFile";
+import { useZipFile } from "@/hooks/useZipFile";
 
 const CreateZipFile = () => {
   const {
@@ -42,6 +42,8 @@ const CreateZipFile = () => {
             onDrop={handleDrop}
             onRemoveFile={removeFile}
             formattedTotalSize={formattedTotalSize}
+            title="Add Files to ZIP"
+            description="Drag and drop files here, or click to browse"
           />
           
           <ZipOptions 
