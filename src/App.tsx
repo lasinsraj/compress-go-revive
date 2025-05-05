@@ -13,6 +13,7 @@ import CompressPNG from "./pages/CompressPNG";
 import CompressJPG from "./pages/CompressJPG";
 import CreateZip from "./pages/CreateZip";
 import CreateZipFile from "./pages/CreateZipFile";
+import RemoveImageMetadata from "./pages/RemoveImageMetadata";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="compress-jpg" element={<CompressJPG />} />
             <Route path="create-zip" element={<CreateZip />} />
             <Route path="create-zip-file" element={<CreateZipFile />} />
+            <Route path="remove-image-metadata" element={<RemoveImageMetadata />} />
             <Route path="about" element={<About />} />
             <Route path="privacy-policy" element={<Privacy />} />
             <Route path="terms-of-service" element={<Terms />} />
