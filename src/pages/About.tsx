@@ -39,6 +39,7 @@ const About = () => {
               <li>For images: We use quality reduction and dimension optimization techniques.</li>
               <li>For video files: We employ efficient codecs and resolution adjustments.</li>
               <li>For ZIP archives: We bundle files together with standard ZIP compression.</li>
+              <li>For privacy: We strip metadata from images to protect your personal information.</li>
             </ul>
           </CardContent>
         </Card>
@@ -75,7 +76,7 @@ const About = () => {
           CompressGo offers a variety of file compression tools to meet different needs:
         </p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="p-4 border rounded-lg">
             <h3 className="font-bold mb-2 text-brand-red">PDF Compression</h3>
             <p className="text-sm text-gray-600">
@@ -101,6 +102,13 @@ const About = () => {
             <h3 className="font-bold mb-2 text-brand-red">ZIP Creation</h3>
             <p className="text-sm text-gray-600">
               Bundle multiple files into compressed ZIP archives for convenient sharing.
+            </p>
+          </div>
+
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-bold mb-2 text-brand-red">Metadata Removal</h3>
+            <p className="text-sm text-gray-600">
+              Strip EXIF data from images to protect your privacy before sharing online.
             </p>
           </div>
         </div>
@@ -144,6 +152,13 @@ const About = () => {
               Browser-based compression offers several advantages: no software installation required, works on any device with a modern browser, ensures privacy since files aren't uploaded, and provides immediate results.
             </p>
           </div>
+
+          <div>
+            <h3 className="font-bold text-lg">What is metadata and why should I remove it?</h3>
+            <p className="text-gray-700">
+              Metadata in images contains information like location coordinates, camera details, and sometimes even personal identifiers. Removing it helps protect your privacy when sharing images online.
+            </p>
+          </div>
         </div>
       </section>
       
@@ -152,12 +167,15 @@ const About = () => {
         <p className="text-gray-700 mb-6">
           Try our free compression tools now - no registration required!
         </p>
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center space-x-4 flex-wrap">
           <a href="/compress-pdf" className="bg-brand-red text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors">
             Compress PDF
           </a>
           <a href="/compress-image" className="bg-brand-dark text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
             Compress Images
+          </a>
+          <a href="/remove-image-metadata" className="bg-brand-blue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+            Remove Metadata
           </a>
         </div>
       </section>

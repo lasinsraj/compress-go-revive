@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Image, Video, Archive, ArrowRight } from "lucide-react";
+import { FileText, Image, Video, Archive, ArrowRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
@@ -207,6 +207,38 @@ const Home = () => {
                 <div className="mt-4 flex justify-end">
                   <Button variant="ghost" className="text-brand-red">
                     Compress Now <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+      </div>
+      
+      {/* Adding the new metadata removal service section */}
+      <div className="mt-8">
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-brand-red flex items-center gap-2 mb-4">
+            <Shield className="h-6 w-6" />
+            PRIVACY TOOLS
+          </h2>
+          <Link to="/remove-image-metadata" className="block transform transition-transform hover:translate-y-[-5px]">
+            <Card className="service-card hover:shadow-xl bg-gradient-to-br from-white to-brand-light/50">
+              <CardHeader className="pb-2">
+                <div className="flex items-center">
+                  <div className="rounded-full bg-brand-red/10 p-3 mr-3">
+                    <Shield className="service-icon w-10 h-10" />
+                  </div>
+                  <CardTitle>Remove Image Metadata</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Protect your privacy by removing EXIF data from images. Eliminate location data, camera information, and other sensitive metadata before sharing photos.
+                </p>
+                <div className="mt-4 flex justify-end">
+                  <Button variant="ghost" className="text-brand-red">
+                    Remove Metadata <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               </CardContent>

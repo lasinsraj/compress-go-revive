@@ -37,6 +37,7 @@ const Header = () => {
                 <Link to="/compress-jpg" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress JPG</Link>
                 <Link to="/create-zip" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create ZIP Archive</Link>
                 <Link to="/create-zip-file" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create ZIP File</Link>
+                <Link to="/remove-image-metadata" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Remove Image Metadata</Link>
               </div>
             </div>
             <Link to="/about" className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium">
@@ -123,6 +124,13 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Create ZIP File
+                </Link>
+                <Link
+                  to="/remove-image-metadata"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Remove Image Metadata
                 </Link>
               </div>
             </div>
