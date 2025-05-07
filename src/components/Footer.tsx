@@ -24,6 +24,9 @@ const Footer = () => {
                 <Link to="/about" className="text-gray-600 hover:text-brand-red">About</Link>
               </li>
               <li>
+                <Link to="/founder" className="text-gray-600 hover:text-brand-red">Founder</Link>
+              </li>
+              <li>
                 <Link to="/privacy-policy" className="text-gray-600 hover:text-brand-red">Privacy Policy</Link>
               </li>
               <li>
@@ -53,7 +56,7 @@ const Footer = () => {
         
         <div className="border-t border-gray-200 mt-8 pt-6">
           <p className="text-gray-500 text-center">
-            &copy; {new Date().getFullYear()} CompressGo. All rights reserved.
+            &copy; {new Date().getFullYear()} CompressGo. All rights reserved. Created by <a href="https://lasitharajapaksha.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-brand-red hover:underline">Lasitha Rajapaksha</a>.
           </p>
         </div>
       </div>

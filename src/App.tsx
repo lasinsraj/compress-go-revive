@@ -17,6 +17,7 @@ import RemoveImageMetadata from "./pages/RemoveImageMetadata";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Founder from "./pages/Founder";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="create-zip-file" element={<CreateZipFile />} />
             <Route path="remove-image-metadata" element={<RemoveImageMetadata />} />
             <Route path="about" element={<About />} />
+            <Route path="founder" element={<Founder />} />
             <Route path="privacy-policy" element={<Privacy />} />
             <Route path="terms-of-service" element={<Terms />} />
             <Route path="*" element={<NotFound />} />

@@ -43,6 +43,9 @@ const Header = () => {
             <Link to="/about" className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium">
               About
             </Link>
+            <Link to="/founder" className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium">
+              Founder
+            </Link>
           </nav>
           
           <div className="md:hidden flex items-center">
@@ -140,6 +143,13 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               About
+            </Link>
+            <Link
+              to="/founder"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Founder
             </Link>
           </div>
         </div>
