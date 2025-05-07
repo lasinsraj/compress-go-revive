@@ -48,10 +48,15 @@ const Founder = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="aspect-square bg-gray-100 rounded-md overflow-hidden">
-                <img alt="Lasitha Rajapaksha" className="object-cover w-full h-full" onError={e => {
-                const target = e.target as HTMLImageElement;
-                target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
-              }} src="/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg" />
+                <img 
+                  alt="Lasitha Rajapaksha" 
+                  className="object-cover w-full h-full" 
+                  onError={e => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
+                  }} 
+                  src="/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg" 
+                />
               </div>
               <div className="flex justify-center mt-4">
                 <Button variant="outline" className="flex items-center gap-2" onClick={() => window.open("https://lasitharajapaksha.netlify.app/", "_blank")}>
