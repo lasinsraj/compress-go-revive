@@ -14,4 +14,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.compressgo.com/sitemap.xml
+Sitemap: https://compress-go.netlify.app/sitemap.xml
