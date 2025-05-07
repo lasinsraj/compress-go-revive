@@ -1,9 +1,38 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { Helmet } from "react-helmet";
+
 const Founder = () => {
-  return <div className="space-y-8">
+  // Schema.org structured data for the founder
+  const founderSchemaData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lasitha Rajapaksha",
+    "url": "https://lasitharajapaksha.netlify.app/",
+    "image": "/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg",
+    "jobTitle": "Full Stack Web Developer",
+    "description": "Lasitha Rajapaksha is a full-stack web developer and software engineer with expertise in building modern, efficient web applications.",
+    "knowsAbout": ["React.js", "TypeScript", "Node.js", "Tailwind CSS", "UI/UX Design", "Full Stack Development"],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "CompressGo",
+      "url": "/"
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      <Helmet>
+        <title>Founder - Lasitha Rajapaksha | CompressGo</title>
+        <meta name="description" content="Learn more about Lasitha Rajapaksha, the creator behind CompressGo - a free online file compression platform." />
+        <script type="application/ld+json">
+          {JSON.stringify(founderSchemaData)}
+        </script>
+      </Helmet>
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">About the Founder</h1>
         <p className="text-gray-600">
@@ -131,6 +160,8 @@ const Founder = () => {
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Founder;
