@@ -3,6 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,24 +28,43 @@ const Header = () => {
             <Link to="/" className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium">
               Home
             </Link>
-            <div className="relative group">
-              <button className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium flex items-center">
+            
+            {/* Replace the Services dropdown with DropdownMenu from shadcn/ui */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium flex items-center">
                 Services
                 <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
-              </button>
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
-                <Link to="/compress-pdf" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress PDF</Link>
-                <Link to="/compress-image" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress Image</Link>
-                <Link to="/compress-video" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress Video</Link>
-                <Link to="/compress-png" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress PNG</Link>
-                <Link to="/compress-jpg" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Compress JPG</Link>
-                <Link to="/create-zip" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create ZIP Archive</Link>
-                <Link to="/create-zip-file" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create ZIP File</Link>
-                <Link to="/remove-image-metadata" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Remove Image Metadata</Link>
-              </div>
-            </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white p-2 rounded-md shadow-lg w-48 z-50">
+                <DropdownMenuItem asChild>
+                  <Link to="/compress-pdf" className="w-full">Compress PDF</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/compress-image" className="w-full">Compress Image</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/compress-video" className="w-full">Compress Video</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/compress-png" className="w-full">Compress PNG</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/compress-jpg" className="w-full">Compress JPG</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/create-zip" className="w-full">Create ZIP Archive</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/create-zip-file" className="w-full">Create ZIP File</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/remove-image-metadata" className="w-full">Remove Image Metadata</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             <Link to="/about" className="text-gray-700 hover:text-brand-red px-3 py-2 rounded-md text-sm font-medium">
               About
             </Link>
