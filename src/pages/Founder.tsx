@@ -1,12 +1,9 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
-
 const Founder = () => {
-  return (
-    <div className="space-y-8">
+  return <div className="space-y-8">
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">About the Founder</h1>
         <p className="text-gray-600">
@@ -22,15 +19,10 @@ const Founder = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="aspect-square bg-gray-100 rounded-md overflow-hidden">
-                <img 
-                  src="https://lasitharajapaksha.netlify.app/assets/img/profile-img.jpg" 
-                  alt="Lasitha Rajapaksha" 
-                  className="object-cover w-full h-full"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
-                  }}
-                />
+                <img alt="Lasitha Rajapaksha" className="object-cover w-full h-full" onError={e => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
+              }} src="/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg" />
               </div>
               <div className="flex justify-center mt-4">
                 <Button variant="outline" className="flex items-center gap-2" onClick={() => window.open("https://lasitharajapaksha.netlify.app/", "_blank")}>
@@ -139,8 +131,6 @@ const Founder = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Founder;
