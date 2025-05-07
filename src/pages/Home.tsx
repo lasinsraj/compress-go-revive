@@ -3,6 +3,7 @@ import React from "react";
 import HeroSection from "@/components/home/HeroSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import AboutSection from "@/components/home/AboutSection";
+import SiteMapSection from "@/components/home/SiteMapSection";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      <SiteMapSection />
     </div>
   );
 };
