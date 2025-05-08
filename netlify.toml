@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "18.x"
-  NPM_FLAGS = "--no-optional"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/*"
