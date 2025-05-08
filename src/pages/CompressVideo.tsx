@@ -8,6 +8,7 @@ import CompressionResult from "@/components/video-compressor/CompressionResult";
 import TipsCard from "@/components/video-compressor/TipsCard";
 import InfoSection from "@/components/video-compressor/InfoSection";
 import AdPlaceholder, { AdPlaceholderWide } from "@/components/shared/AdPlaceholder";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CompressVideo = () => {
   const {
@@ -29,6 +30,13 @@ const CompressVideo = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Compress Video | Reduce Video File Size Online | CompressGo"
+        description="Reduce the size of your video files while maintaining good quality. Supports MP4, WebM, MOV, and other popular video formats."
+        keywords="compress video, video compression, reduce video size, optimize video, video compressor, online video compressor, free video compression"
+        canonicalUrl="https://compress-go.netlify.app/compress-video"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Compress Video</h1>
         <p className="text-gray-600">

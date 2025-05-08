@@ -7,6 +7,7 @@ import CompressionOptions from "@/components/pdf-compressor/CompressionOptions";
 import CompressionResult from "@/components/pdf-compressor/CompressionResult";
 import TipsCard from "@/components/pdf-compressor/TipsCard";
 import InfoSection from "@/components/pdf-compressor/InfoSection";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CompressPDF = () => {
   const {
@@ -23,6 +24,13 @@ const CompressPDF = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Compress PDF | Reduce PDF File Size Online | CompressGo"
+        description="Reduce the size of your PDF files with our powerful compression tool. Free online PDF compressor that maintains document quality while decreasing file size."
+        keywords="compress pdf, pdf compression, reduce pdf size, optimize pdf, pdf compressor, online pdf compressor, free pdf compression"
+        canonicalUrl="https://compress-go.netlify.app/compress-pdf"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Compress PDF</h1>
         <p className="text-gray-600">

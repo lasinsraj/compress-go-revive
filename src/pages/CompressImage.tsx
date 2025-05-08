@@ -8,6 +8,7 @@ import TipsCard from "@/components/image-compressor/TipsCard";
 import RelatedTools from "@/components/image-compressor/RelatedTools";
 import InfoSection from "@/components/image-compressor/InfoSection";
 import AdPlaceholder from "@/components/shared/AdPlaceholder";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CompressImage = () => {
   const {
@@ -28,6 +29,13 @@ const CompressImage = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Compress Image | Reduce Image Size Online | CompressGo"
+        description="Reduce the size of your image files while maintaining good quality. Supports JPEG, PNG, GIF, WebP and other popular image formats."
+        keywords="compress image, image compression, reduce image size, optimize image, image compressor, online image compressor, free image compression"
+        canonicalUrl="https://compress-go.netlify.app/compress-image"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Compress Image</h1>
         <p className="text-gray-600">

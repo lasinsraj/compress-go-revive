@@ -5,6 +5,7 @@ import MetadataRemovalOptions from "@/components/metadata-remover/MetadataRemova
 import InfoCards from "@/components/metadata-remover/InfoCards";
 import HowToSection from "@/components/metadata-remover/HowToSection";
 import { useImageMetadataRemover } from "@/hooks/useImageMetadataRemover";
+import SEOHead from "@/components/shared/SEOHead";
 
 const RemoveImageMetadata = () => {
   const {
@@ -24,6 +25,13 @@ const RemoveImageMetadata = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Remove Image Metadata | Delete EXIF Data | CompressGo"
+        description="Remove sensitive EXIF data from your images before sharing them online. Protect your privacy by stripping location, camera information, and other metadata."
+        keywords="remove metadata, delete exif data, strip image data, privacy protection, image metadata removal, exif cleaner"
+        canonicalUrl="https://compress-go.netlify.app/remove-image-metadata"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Remove Image Metadata</h1>
         <p className="text-gray-600">

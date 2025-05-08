@@ -8,6 +8,7 @@ import TipsCard from "@/components/jpg-compressor/TipsCard";
 import AdPlaceholder from "@/components/shared/AdPlaceholder";
 import RelatedTools from "@/components/jpg-compressor/RelatedTools";
 import InfoSection from "@/components/jpg-compressor/InfoSection";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CompressJPG = () => {
   const validateJpgFileType = (file: File) => {
@@ -30,6 +31,13 @@ const CompressJPG = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Compress JPG | Reduce JPEG Image Size Online | CompressGo"
+        description="Reduce the file size of your JPG/JPEG images while maintaining good visual quality. Perfect for photos, web images, and email attachments."
+        keywords="compress jpg, jpeg compression, reduce jpg size, optimize jpeg, jpg compressor, online jpg compressor, free jpg compression"
+        canonicalUrl="https://compress-go.netlify.app/compress-jpg"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Compress JPG</h1>
         <p className="text-gray-600">

@@ -5,6 +5,7 @@ import ZipOptions from "@/components/zip-creator/ZipOptions";
 import InfoCards from "@/components/zip-creator/InfoCards";
 import AboutSection from "@/components/zip-creator/AboutSection";
 import { useZipCreator } from "@/hooks/useZipCreator";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CreateZip = () => {
   const {
@@ -25,6 +26,13 @@ const CreateZip = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Create ZIP Archive | Compress Multiple Files Online | CompressGo"
+        description="Compress multiple files into a single ZIP archive. Add files by dragging and dropping or browsing your device."
+        keywords="create zip, zip archive, compress files, online zip, file compression, free zip creator"
+        canonicalUrl="https://compress-go.netlify.app/create-zip"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Create ZIP Archive</h1>
         <p className="text-gray-600">

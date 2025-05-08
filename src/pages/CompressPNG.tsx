@@ -7,6 +7,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Download, Image } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DownloadButton from "@/components/shared/DownloadButton";
+import SEOHead from "@/components/shared/SEOHead";
 
 const CompressPNG = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -103,6 +104,13 @@ const CompressPNG = () => {
   
   return (
     <div className="space-y-8">
+      <SEOHead
+        title="Compress PNG | Reduce PNG Size Online | CompressGo"
+        description="Reduce the file size of PNG images while preserving transparency and visual quality. Perfect for web graphics, icons, and screenshots."
+        keywords="compress png, png compression, reduce png size, optimize png, png compressor, online png compressor, free png compression"
+        canonicalUrl="https://compress-go.netlify.app/compress-png"
+      />
+      
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Compress PNG</h1>
         <p className="text-gray-600">
