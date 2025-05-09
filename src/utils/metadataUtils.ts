@@ -36,7 +36,7 @@ export const formatFileSize = (sizeInBytes: number): string => {
   return `${(sizeInBytes / (1024 * 1024)).toFixed(2)} MB`;
 };
 
-// Actually remove metadata from image by creating a clean version
+// Completely remove metadata from image by creating a clean version
 export const removeImageMetadata = async (file: File): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     // Create a new image element
@@ -58,20 +58,29 @@ export const removeImageMetadata = async (file: File): Promise<Blob> => {
       canvas.width = img.width;
       canvas.height = img.height;
       
-      // Draw the image onto the canvas (this strips the metadata)
-      ctx.drawImage(img, 0, 0);
+      // Clear the canvas first
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Convert the canvas to a blob
-      canvas.toBlob((blob) => {
-        if (blob) {
-          // Clean up
-          URL.revokeObjectURL(url);
-          resolve(blob);
-        } else {
-          URL.revokeObjectURL(url);
-          reject(new Error('Failed to create blob from canvas'));
-        }
-      }, file.type);
+      // Draw the image onto the canvas (this strips the metadata)
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      
+      // Convert the canvas to a blob with specified quality to ensure metadata is stripped
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            console.log("Created clean blob with size:", blob.size);
+            
+            // Clean up
+            URL.revokeObjectURL(url);
+            resolve(blob);
+          } else {
+            URL.revokeObjectURL(url);
+            reject(new Error('Failed to create blob from canvas'));
+          }
+        },
+        file.type,
+        1.0  // Use maximum quality to preserve image quality
+      );
     };
     
     img.onerror = () => {

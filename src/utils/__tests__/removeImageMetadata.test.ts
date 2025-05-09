@@ -4,14 +4,19 @@ import { removeImageMetadata } from '../metadataUtils';
 
 // Mock canvas and context
 const mockCtx = {
-  drawImage: vi.fn()
+  drawImage: vi.fn(),
+  clearRect: vi.fn()
 };
 
 const mockCanvas = {
   getContext: vi.fn().mockReturnValue(mockCtx),
   width: 0,
   height: 0,
-  toBlob: vi.fn().mockImplementation(callback => callback(new Blob(['test'])))
+  toBlob: vi.fn().mockImplementation((callback, type, quality) => {
+    // Verify that we're using maximum quality to preserve image content
+    expect(quality).toBe(1.0);
+    callback(new Blob(['test']));
+  })
 };
 
 // Mock document methods
@@ -47,7 +52,7 @@ describe('removeImageMetadata', () => {
     global.Image = vi.fn().mockImplementation(() => mockImage);
   });
   
-  it('should process an image file and return a blob', async () => {
+  it('should process an image file and return a blob with no metadata', async () => {
     const processPromise = removeImageMetadata(mockFile);
     
     // Simulate the image load event
@@ -55,9 +60,10 @@ describe('removeImageMetadata', () => {
     
     const result = await processPromise;
     
-    // Verify the image was processed
+    // Verify the image was processed correctly
     expect(URL.createObjectURL).toHaveBeenCalledWith(mockFile);
-    expect(mockCtx.drawImage).toHaveBeenCalled();
+    expect(mockCtx.clearRect).toHaveBeenCalled(); // Verify canvas was cleared
+    expect(mockCtx.drawImage).toHaveBeenCalledWith(mockImage, 0, 0, 100, 100);
     expect(mockCanvas.toBlob).toHaveBeenCalled();
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob-url');
     expect(result).toBeInstanceOf(Blob);

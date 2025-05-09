@@ -40,6 +40,8 @@ export const useMetadataProcessor = ({
     setProcessing(true);
     
     try {
+      console.log("Starting metadata removal for", files.length, "files");
+      
       // Process all files to remove metadata
       const processedBlobs = await Promise.all(
         files.map(file => removeImageMetadata(file))
@@ -49,21 +51,19 @@ export const useMetadataProcessor = ({
       setProcessing(false);
       setProcessed(true);
       
-      // Update metadata display to show only basic information
-      setMetadata(prev => {
-        if (!prev) return null;
-        
-        // Keep only basic information, remove sensitive data
-        return {
-          "File Name": prev["File Name"],
-          "File Size": prev["File Size"],
-          "File Type": prev["File Type"]
-        };
+      console.log("Metadata removal complete. Created", processedBlobs.length, "clean blobs");
+      
+      // Update metadata display to show metadata has been completely removed
+      setMetadata({
+        "File Name": files[0].name,
+        "File Size": `${(cleanedBlobs[0]?.size / 1024).toFixed(2)} KB`,
+        "File Type": files[0].type,
+        "Status": "All metadata removed"
       });
       
       toast({
-        title: "Metadata removed",
-        description: `Successfully removed metadata from ${files.length} image${files.length > 1 ? 's' : ''}.`,
+        title: "Metadata completely removed",
+        description: `Successfully removed all metadata from ${files.length} image${files.length > 1 ? 's' : ''}.`,
       });
     } catch (error) {
       console.error("Error removing metadata:", error);
@@ -87,6 +87,8 @@ export const useMetadataProcessor = ({
       return;
     }
     
+    console.log("Starting download of cleaned image");
+    
     // Use the cleaned blob to download
     const link = document.createElement('a');
     const fileIndex = 0; // Default to first file for now
@@ -107,7 +109,7 @@ export const useMetadataProcessor = ({
     
     toast({
       title: "Download started",
-      description: "Your clean image without metadata is downloading.",
+      description: "Your clean image without any metadata is downloading.",
     });
   };
   
