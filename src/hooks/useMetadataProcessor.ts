@@ -1,6 +1,8 @@
+
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { MetadataType } from "@/types/metadata";
+import { removeImageMetadata } from "@/utils/metadataUtils";
 
 interface UseMetadataProcessorProps {
   files: File[];
@@ -23,8 +25,9 @@ export const useMetadataProcessor = ({
 }: UseMetadataProcessorProps): UseMetadataProcessorResult => {
   const [processing, setProcessing] = useState(false);
   const [processed, setProcessed] = useState(false);
+  const [cleanedBlobs, setCleanedBlobs] = useState<Blob[]>([]);
   
-  const handleRemoveMetadata = () => {
+  const handleRemoveMetadata = async () => {
     if (files.length === 0) {
       toast({
         title: "No images selected",
@@ -36,10 +39,17 @@ export const useMetadataProcessor = ({
     
     setProcessing(true);
     
-    // Simulate processing time
-    setTimeout(() => {
+    try {
+      // Process all files to remove metadata
+      const processedBlobs = await Promise.all(
+        files.map(file => removeImageMetadata(file))
+      );
+      
+      setCleanedBlobs(processedBlobs);
       setProcessing(false);
       setProcessed(true);
+      
+      // Update metadata display to show only basic information
       setMetadata(prev => {
         if (!prev) return null;
         
@@ -55,11 +65,20 @@ export const useMetadataProcessor = ({
         title: "Metadata removed",
         description: `Successfully removed metadata from ${files.length} image${files.length > 1 ? 's' : ''}.`,
       });
-    }, 1500);
+    } catch (error) {
+      console.error("Error removing metadata:", error);
+      setProcessing(false);
+      
+      toast({
+        title: "Processing failed",
+        description: "There was an error removing metadata from your images.",
+        variant: "destructive",
+      });
+    }
   };
   
   const handleDownload = () => {
-    if (files.length === 0 || !processed) {
+    if (files.length === 0 || !processed || cleanedBlobs.length === 0) {
       toast({
         title: "Cannot download",
         description: "Please process an image before downloading.",
@@ -68,14 +87,13 @@ export const useMetadataProcessor = ({
       return;
     }
     
-    // Simulate downloading the processed image
-    // In a real implementation, we would create a clean copy of the image without metadata
-    
+    // Use the cleaned blob to download
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(files[0]);
+    const fileIndex = 0; // Default to first file for now
+    link.href = URL.createObjectURL(cleanedBlobs[fileIndex]);
     
     // Add "-clean" suffix to filename
-    const fileName = files[0].name;
+    const fileName = files[fileIndex].name;
     const fileExt = fileName.substring(fileName.lastIndexOf('.'));
     const baseFileName = fileName.substring(0, fileName.lastIndexOf('.'));
     link.download = `${baseFileName}-clean${fileExt}`;
@@ -84,9 +102,12 @@ export const useMetadataProcessor = ({
     link.click();
     document.body.removeChild(link);
     
+    // Clean up
+    URL.revokeObjectURL(link.href);
+    
     toast({
       title: "Download started",
-      description: "Your clean image is downloading.",
+      description: "Your clean image without metadata is downloading.",
     });
   };
   

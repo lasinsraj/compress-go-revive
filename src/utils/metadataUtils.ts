@@ -35,3 +35,50 @@ export const formatFileSize = (sizeInBytes: number): string => {
   }
   return `${(sizeInBytes / (1024 * 1024)).toFixed(2)} MB`;
 };
+
+// Actually remove metadata from image by creating a clean version
+export const removeImageMetadata = async (file: File): Promise<Blob> => {
+  return new Promise((resolve, reject) => {
+    // Create a new image element
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    
+    img.onload = () => {
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      if (!ctx) {
+        URL.revokeObjectURL(url);
+        reject(new Error('Could not get canvas context'));
+        return;
+      }
+      
+      // Set canvas dimensions to match the image
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      // Draw the image onto the canvas (this strips the metadata)
+      ctx.drawImage(img, 0, 0);
+      
+      // Convert the canvas to a blob
+      canvas.toBlob((blob) => {
+        if (blob) {
+          // Clean up
+          URL.revokeObjectURL(url);
+          resolve(blob);
+        } else {
+          URL.revokeObjectURL(url);
+          reject(new Error('Failed to create blob from canvas'));
+        }
+      }, file.type);
+    };
+    
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Failed to load image'));
+    };
+    
+    img.src = url;
+  });
+};
