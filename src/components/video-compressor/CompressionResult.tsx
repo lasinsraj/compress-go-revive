@@ -1,7 +1,5 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
 import DownloadButton from "@/components/shared/DownloadButton";
 
 interface CompressionResultProps {

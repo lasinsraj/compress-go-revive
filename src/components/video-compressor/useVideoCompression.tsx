@@ -10,11 +10,13 @@ export const useVideoCompression = () => {
   const [compressed, setCompressed] = useState(false);
   const [compressedSize, setCompressedSize] = useState(0);
   const [originalVideoUrl, setOriginalVideoUrl] = useState<string | null>(null);
+  const [compressedVideoUrl, setCompressedVideoUrl] = useState<string | null>(null);
   const [videoDuration, setVideoDuration] = useState(0);
   
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
     setCompressed(false);
+    setCompressedVideoUrl(null);
     
     // Preview the original video
     if (file && file.type.startsWith("video/")) {
@@ -68,6 +70,13 @@ export const useVideoCompression = () => {
     // Calculate simulated compressed size
     const newSize = Math.floor(originalSize * compressionRatio);
     
+    // Create a new blob URL for the compressed video simulation
+    // In a real implementation, this would be the actual compressed video
+    if (originalVideoUrl) {
+      // For simulation, we're using the original video as the compressed one
+      setCompressedVideoUrl(originalVideoUrl);
+    }
+    
     // Simulate processing delay - longer for videos
     setTimeout(() => {
       setProcessing(false);
@@ -82,17 +91,22 @@ export const useVideoCompression = () => {
   };
   
   const handleDownload = () => {
-    if (!selectedFile || !originalVideoUrl) return;
+    if (!selectedFile || !compressedVideoUrl) {
+      toast({
+        title: "No compressed video",
+        description: "Please compress a video first.",
+        variant: "destructive",
+      });
+      return;
+    }
     
-    // In a real implementation, we would download the actual compressed video
-    // Here we're just downloading the original video as a simulation
+    // Create a temporary anchor element to trigger the download
     const a = document.createElement("a");
-    a.href = originalVideoUrl;
+    a.href = compressedVideoUrl;
     a.download = `compressed_${selectedFile.name}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(originalVideoUrl);
     
     toast({
       title: "Download Started",
@@ -117,6 +131,7 @@ export const useVideoCompression = () => {
     compressed,
     compressedSize,
     originalVideoUrl,
+    compressedVideoUrl,
     videoDuration,
     handleFileSelect,
     handleCompression,

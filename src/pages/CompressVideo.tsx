@@ -21,6 +21,7 @@ const CompressVideo = () => {
     compressed,
     compressedSize,
     originalVideoUrl,
+    compressedVideoUrl,
     videoDuration,
     handleFileSelect,
     handleCompression,
