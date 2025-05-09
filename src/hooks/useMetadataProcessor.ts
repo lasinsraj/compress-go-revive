@@ -42,7 +42,7 @@ export const useMetadataProcessor = ({
     try {
       console.log("Starting metadata removal for", files.length, "files");
       
-      // Process all files to remove metadata
+      // Process all files to remove metadata using our enhanced method
       const processedBlobs = await Promise.all(
         files.map(file => removeImageMetadata(file))
       );
@@ -56,14 +56,14 @@ export const useMetadataProcessor = ({
       // Update metadata display to show metadata has been completely removed
       setMetadata({
         "File Name": files[0].name,
-        "File Size": `${(cleanedBlobs[0]?.size / 1024).toFixed(2)} KB`,
+        "File Size": `${(processedBlobs[0]?.size / 1024).toFixed(2)} KB`,
         "File Type": files[0].type,
-        "Status": "All metadata removed"
+        "Status": "All metadata completely removed - 100% clean"
       });
       
       toast({
         title: "Metadata completely removed",
-        description: `Successfully removed all metadata from ${files.length} image${files.length > 1 ? 's' : ''}.`,
+        description: `Successfully removed all metadata from ${files.length} image${files.length > 1 ? 's' : ''}. The image is now 100% clean.`,
       });
     } catch (error) {
       console.error("Error removing metadata:", error);

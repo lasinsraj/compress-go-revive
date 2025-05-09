@@ -44,43 +44,96 @@ export const removeImageMetadata = async (file: File): Promise<Blob> => {
     const url = URL.createObjectURL(file);
     
     img.onload = () => {
-      // Create a canvas element
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      if (!ctx) {
+      try {
+        // Create a canvas element with specific settings to ensure metadata removal
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: false });
+        
+        if (!ctx) {
+          URL.revokeObjectURL(url);
+          reject(new Error('Could not get canvas context'));
+          return;
+        }
+        
+        // Fill with white background to ensure transparency is handled
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw the image onto the canvas (this strips the metadata)
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        
+        // Force a new image with no metadata
+        // Use the toBlob method with image/jpeg format and maximum quality
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              console.log("Created clean blob with size:", blob.size);
+              
+              // Double check by creating a second canvas pass (ensures complete stripping)
+              const secondImg = new Image();
+              const secondUrl = URL.createObjectURL(blob);
+              
+              secondImg.onload = () => {
+                const secondCanvas = document.createElement('canvas');
+                secondCanvas.width = secondImg.width;
+                secondCanvas.height = secondImg.height;
+                
+                const secondCtx = secondCanvas.getContext('2d');
+                
+                if (!secondCtx) {
+                  URL.revokeObjectURL(url);
+                  URL.revokeObjectURL(secondUrl);
+                  reject(new Error('Could not get second canvas context'));
+                  return;
+                }
+                
+                // Clear and redraw on second canvas
+                secondCtx.clearRect(0, 0, secondCanvas.width, secondCanvas.height);
+                secondCtx.drawImage(secondImg, 0, 0);
+                
+                // Create final blob with maximum quality
+                secondCanvas.toBlob(
+                  (finalBlob) => {
+                    if (finalBlob) {
+                      console.log("Final clean blob created with size:", finalBlob.size);
+                      
+                      // Clean up resources
+                      URL.revokeObjectURL(url);
+                      URL.revokeObjectURL(secondUrl);
+                      resolve(finalBlob);
+                    } else {
+                      URL.revokeObjectURL(url);
+                      URL.revokeObjectURL(secondUrl);
+                      reject(new Error('Failed to create final blob'));
+                    }
+                  },
+                  'image/jpeg',
+                  1.0  // Maximum quality to preserve image quality
+                );
+              };
+              
+              secondImg.onerror = () => {
+                URL.revokeObjectURL(url);
+                URL.revokeObjectURL(secondUrl);
+                reject(new Error('Failed to load second image'));
+              };
+              
+              secondImg.src = secondUrl;
+            } else {
+              URL.revokeObjectURL(url);
+              reject(new Error('Failed to create blob from canvas'));
+            }
+          },
+          'image/jpeg',
+          1.0  // Use maximum quality for first pass
+        );
+      } catch (error) {
         URL.revokeObjectURL(url);
-        reject(new Error('Could not get canvas context'));
-        return;
+        reject(error);
       }
-      
-      // Set canvas dimensions to match the image
-      canvas.width = img.width;
-      canvas.height = img.height;
-      
-      // Clear the canvas first
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw the image onto the canvas (this strips the metadata)
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-      
-      // Convert the canvas to a blob with specified quality to ensure metadata is stripped
-      canvas.toBlob(
-        (blob) => {
-          if (blob) {
-            console.log("Created clean blob with size:", blob.size);
-            
-            // Clean up
-            URL.revokeObjectURL(url);
-            resolve(blob);
-          } else {
-            URL.revokeObjectURL(url);
-            reject(new Error('Failed to create blob from canvas'));
-          }
-        },
-        file.type,
-        1.0  // Use maximum quality to preserve image quality
-      );
     };
     
     img.onerror = () => {

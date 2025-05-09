@@ -5,7 +5,9 @@ import { removeImageMetadata } from '../metadataUtils';
 // Mock canvas and context
 const mockCtx = {
   drawImage: vi.fn(),
-  clearRect: vi.fn()
+  clearRect: vi.fn(),
+  fillStyle: '',
+  fillRect: vi.fn()
 };
 
 const mockCanvas = {
@@ -58,11 +60,27 @@ describe('removeImageMetadata', () => {
     // Simulate the image load event
     mockImage.onload();
     
+    // Mock the second image and blob for the double-pass process
+    const secondMockImage = {
+      onload: null,
+      onerror: null,
+      width: 100,
+      height: 100,
+      src: ''
+    };
+    
+    // Replace the Image constructor to return the second mock
+    // @ts-ignore
+    global.Image = vi.fn().mockReturnValue(secondMockImage);
+    
+    // Trigger the second image onload
+    secondMockImage.onload();
+    
     const result = await processPromise;
     
     // Verify the image was processed correctly
     expect(URL.createObjectURL).toHaveBeenCalledWith(mockFile);
-    expect(mockCtx.clearRect).toHaveBeenCalled(); // Verify canvas was cleared
+    expect(mockCtx.fillRect).toHaveBeenCalled(); // Verify background was filled
     expect(mockCtx.drawImage).toHaveBeenCalledWith(mockImage, 0, 0, 100, 100);
     expect(mockCanvas.toBlob).toHaveBeenCalled();
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob-url');
