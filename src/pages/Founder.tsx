@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,6 @@ import { ExternalLink, Linkedin, Twitter, Globe, Github, Medal, GraduationCap, B
 import { Helmet } from "react-helmet";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-
 const Founder = () => {
   // Schema.org structured data for the founder
   const founderSchemaData = {
@@ -24,69 +22,49 @@ const Founder = () => {
       "url": "/"
     },
     "alumniOf": "University of Colombo School of Computing",
-    "sameAs": [
-      "https://www.linkedin.com/in/lasitha-rajapaksha/",
-      "https://twitter.com/lasithadev",
-      "https://github.com/lasithadev"
-    ]
+    "sameAs": ["https://www.linkedin.com/in/lasitha-rajapaksha/", "https://twitter.com/lasithadev", "https://github.com/lasithadev"]
   };
 
   // Experience data
-  const experiences = [
-    {
-      company: "CompressGo",
-      position: "Founder & Lead Developer",
-      period: "2022 - Present",
-      description: "Founded and developed CompressGo, a free online platform providing privacy-focused file compression tools.",
-      achievements: ["Built entire platform from concept to production", "Implemented client-side processing for enhanced privacy", "Optimized compression algorithms for various file formats"]
-    },
-    {
-      company: "TechInnovate Solutions",
-      position: "Senior Full Stack Developer",
-      period: "2019 - 2022",
-      description: "Led development of enterprise web applications with focus on performance and user experience.",
-      achievements: ["Reduced application load time by 40%", "Implemented microservices architecture", "Mentored junior developers"]
-    },
-    {
-      company: "WebSphere Technologies",
-      position: "Front-end Developer",
-      period: "2017 - 2019",
-      description: "Developed responsive web interfaces for client projects using modern JavaScript frameworks.",
-      achievements: ["Created component library used across multiple projects", "Implemented automated testing processes", "Improved UI/UX for several major clients"]
-    }
-  ];
+  const experiences = [{
+    company: "CompressGo",
+    position: "Founder & Lead Developer",
+    period: "2022 - Present",
+    description: "Founded and developed CompressGo, a free online platform providing privacy-focused file compression tools.",
+    achievements: ["Built entire platform from concept to production", "Implemented client-side processing for enhanced privacy", "Optimized compression algorithms for various file formats"]
+  }, {
+    company: "TechInnovate Solutions",
+    position: "Senior Full Stack Developer",
+    period: "2019 - 2022",
+    description: "Led development of enterprise web applications with focus on performance and user experience.",
+    achievements: ["Reduced application load time by 40%", "Implemented microservices architecture", "Mentored junior developers"]
+  }, {
+    company: "WebSphere Technologies",
+    position: "Front-end Developer",
+    period: "2017 - 2019",
+    description: "Developed responsive web interfaces for client projects using modern JavaScript frameworks.",
+    achievements: ["Created component library used across multiple projects", "Implemented automated testing processes", "Improved UI/UX for several major clients"]
+  }];
 
   // Education data
-  const education = [
-    {
-      institution: "University of Colombo School of Computing",
-      degree: "BSc in Computer Science",
-      year: "2013 - 2017",
-      honors: "First Class Honors"
-    },
-    {
-      institution: "FreeCodeCamp",
-      degree: "Full Stack Web Development Certification",
-      year: "2016"
-    },
-    {
-      institution: "MongoDB University",
-      degree: "MongoDB Developer Certification",
-      year: "2018"
-    }
-  ];
+  const education = [{
+    institution: "University of Colombo School of Computing",
+    degree: "BSc in Computer Science",
+    year: "2013 - 2017",
+    honors: "First Class Honors"
+  }, {
+    institution: "FreeCodeCamp",
+    degree: "Full Stack Web Development Certification",
+    year: "2016"
+  }, {
+    institution: "MongoDB University",
+    degree: "MongoDB Developer Certification",
+    year: "2018"
+  }];
 
   // Achievements & certifications
-  const achievements = [
-    "Google Cloud Certified Professional Cloud Developer",
-    "AWS Certified Solutions Architect",
-    "Top contributor to open source compression libraries",
-    "Featured in Web Developer Magazine 2021",
-    "Speaker at DevCon Asia 2022"
-  ];
-
-  return (
-    <div className="space-y-8">
+  const achievements = ["Google Cloud Certified Professional Cloud Developer", "AWS Certified Solutions Architect", "Top contributor to open source compression libraries", "Featured in Web Developer Magazine 2021", "Speaker at DevCon Asia 2022"];
+  return <div className="space-y-8">
       <Helmet>
         <title>Founder - Lasitha Rajapaksha | CompressGo</title>
         <meta name="description" content="Learn more about Lasitha Rajapaksha, the creator behind CompressGo - a free online file compression platform." />
@@ -125,15 +103,10 @@ const Founder = () => {
             <div className="relative w-56 h-56">
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 blur-xl opacity-40"></div>
               <div className="absolute inset-1 rounded-full bg-white/5 backdrop-blur-sm border border-white/20 overflow-hidden">
-                <img 
-                  alt="Lasitha Rajapaksha" 
-                  className="object-cover w-full h-full rounded-full" 
-                  onError={e => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
-                  }} 
-                  src="/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg" 
-                />
+                <img alt="Lasitha Rajapaksha" className="object-cover w-full h-full rounded-full" onError={e => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://placeholder.pics/svg/300/DEDEDE/555555/Profile%20Image";
+              }} src="/lovable-uploads/187be921-367d-46ee-b3c6-fc62d6b91172.jpg" />
               </div>
             </div>
           </div>
@@ -252,8 +225,7 @@ const Founder = () => {
         </CardHeader>
         <CardContent className="p-0">
           <div className="divide-y">
-            {experiences.map((exp, index) => (
-              <div key={index} className="p-6">
+            {experiences.map((exp, index) => <div key={index} className="p-6">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                   <h3 className="font-bold text-lg">{exp.position}</h3>
                   <div className="text-brand-blue font-medium">{exp.period}</div>
@@ -264,13 +236,10 @@ const Founder = () => {
                 <div className="mt-2">
                   <h4 className="text-sm font-semibold text-gray-600 mb-2">Key Achievements:</h4>
                   <ul className="list-disc pl-5 space-y-1 text-gray-700 text-sm">
-                    {exp.achievements.map((achievement, i) => (
-                      <li key={i}>{achievement}</li>
-                    ))}
+                    {exp.achievements.map((achievement, i) => <li key={i}>{achievement}</li>)}
                   </ul>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </CardContent>
       </Card>
@@ -286,20 +255,16 @@ const Founder = () => {
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y">
-              {education.map((edu, index) => (
-                <div key={index} className="p-6">
+              {education.map((edu, index) => <div key={index} className="p-6">
                   <h3 className="font-bold text-lg">{edu.institution}</h3>
                   <div className="text-gray-700">{edu.degree}</div>
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-gray-500 text-sm">{edu.year}</span>
-                    {edu.honors && (
-                      <span className="bg-brand-blue/10 text-brand-blue text-xs py-1 px-2 rounded-full">
+                    {edu.honors && <span className="bg-brand-blue/10 text-brand-blue text-xs py-1 px-2 rounded-full">
                         {edu.honors}
-                      </span>
-                    )}
+                      </span>}
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -314,14 +279,12 @@ const Founder = () => {
           </CardHeader>
           <CardContent className="p-6">
             <ul className="space-y-3">
-              {achievements.map((achievement, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {achievements.map((achievement, index) => <li key={index} className="flex items-start gap-2">
                   <div className="mt-1 flex-shrink-0">
                     <div className="h-2 w-2 rounded-full bg-brand-blue"></div>
                   </div>
                   <span className="text-gray-700">{achievement}</span>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </CardContent>
         </Card>
@@ -468,7 +431,7 @@ const Founder = () => {
                   <h3 className="font-medium">Contact Information</h3>
                   <div className="grid grid-cols-[20px_1fr] items-center gap-x-2">
                     <span>📧</span>
-                    <a href="mailto:hello@lasitha.dev" className="text-blue-600 hover:underline">hello@lasitha.dev</a>
+                    <a href="mailto:hello@lasitha.dev" className="text-blue-600 hover:underline">lasinsraj@gmail.com</a>
                   </div>
                   <div className="grid grid-cols-[20px_1fr] items-center gap-x-2">
                     <span>🌐</span>
@@ -484,8 +447,6 @@ const Founder = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Founder;
