@@ -1,0 +1,13 @@
+https://compress-go.netlify.app/
+https://compress-go.netlify.app/compress-pdf
+https://compress-go.netlify.app/compress-image
+https://compress-go.netlify.app/compress-video
+https://compress-go.netlify.app/compress-png
+https://compress-go.netlify.app/compress-jpg
+https://compress-go.netlify.app/create-zip
+https://compress-go.netlify.app/create-zip-file
+https://compress-go.netlify.app/remove-image-metadata
+https://compress-go.netlify.app/about
+https://compress-go.netlify.app/founder
+https://compress-go.netlify.app/privacy-policy
+https://compress-go.netlify.app/terms-of-service
