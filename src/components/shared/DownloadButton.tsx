@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Loader } from "lucide-react";
+import { Download, Loader, Timer } from "lucide-react";
 
 interface DownloadButtonProps {
   onDownload: () => void;
@@ -42,8 +42,8 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
   
   const handleClick = () => {
     if (countdown === null && !disabled) {
-      // Start the download immediately without countdown
-      onDownload();
+      // Start the countdown when button is clicked
+      setCountdown(5);
     }
   };
   
@@ -57,7 +57,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
     >
       {countdown !== null ? (
         <>
-          <Loader className="mr-2 h-4 w-4 animate-spin" />
+          <Timer className="mr-2 h-4 w-4 animate-pulse" />
           <span>Wait {countdown}s...</span>
         </>
       ) : (

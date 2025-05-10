@@ -70,11 +70,17 @@ export const useVideoCompression = () => {
     // Calculate simulated compressed size
     const newSize = Math.floor(originalSize * compressionRatio);
     
-    // Create a new blob URL for the compressed video simulation
-    // In a real implementation, this would be the actual compressed video
-    if (originalVideoUrl) {
-      // For simulation, we're using the original video as the compressed one
-      setCompressedVideoUrl(originalVideoUrl);
+    // Create a separate blob URL for the compressed video simulation
+    // In a real implementation, this would be a different blob with the compressed data
+    let compressedBlob: Blob;
+    
+    // For simulation purposes, create a new blob to represent compressed data
+    if (originalVideoUrl && selectedFile) {
+      // In an actual implementation this would be different data
+      // Here we're just creating a new reference to simulate compression
+      compressedBlob = new Blob([selectedFile], { type: selectedFile.type });
+      const compressedURL = URL.createObjectURL(compressedBlob);
+      setCompressedVideoUrl(compressedURL);
     }
     
     // Simulate processing delay - longer for videos
